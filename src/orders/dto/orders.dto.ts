@@ -1,4 +1,4 @@
-import { DeliveryFormState } from 'types/orders';
+import { DeliveryFormState } from 'src/types/orders';
 
 export class CreateOrderDto {
   readonly data: DeliveryFormState;

@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { OrdersModule } from './orders/orders.module';
+import { FilesService } from './files/files.service';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -12,6 +14,8 @@ import { OrdersModule } from './orders/orders.module';
         dbName: 'ordersdb',
       },
     ),
+    FilesModule,
   ],
+  // providers: [FilesService],
 })
 export class AppModule {}
