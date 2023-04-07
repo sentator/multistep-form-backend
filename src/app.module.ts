@@ -1,11 +1,17 @@
 import { Module } from '@nestjs/common';
-import { OrdersController } from './orders/orders.controller';
+import { MongooseModule } from '@nestjs/mongoose';
+
 import { OrdersModule } from './orders/orders.module';
-import { OrdersService } from './orders/orders.service';
 
 @Module({
-  imports: [OrdersModule],
-  controllers: [OrdersController],
-  providers: [OrdersService],
+  imports: [
+    OrdersModule,
+    MongooseModule.forRoot(
+      'mongodb+srv://admin:wwwwww@multistepformcluster.htxwevl.mongodb.net/?retryWrites=true&w=majority',
+      {
+        dbName: 'ordersdb',
+      },
+    ),
+  ],
 })
 export class AppModule {}

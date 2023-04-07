@@ -1,57 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { v4 as uuidv4 } from 'uuid';
+import { InjectModel } from '@nestjs/mongoose';
+import { Order } from 'src/schemas/order.schema';
+import { Model } from 'mongoose';
 
-import { CreateOrderDto, CreatedOrderDto } from './orders.dto';
+import { CreateOrderDto, CreatedOrderDto } from './dto/orders.dto';
 
 @Injectable()
 export class OrdersService {
-  orders: CreatedOrderDto[];
+  constructor(@InjectModel(Order.name) private orderModel: Model<Order>) {}
 
-  constructor() {
-    this.orders = [
-      {
-        id: uuidv4(),
-        data: {
-          generalInformation: {
-            country: null,
-            shop: null,
-            parcelName: '',
-            orderComposition: [
-              { id: uuidv4(), productName: '', quantity: 1, totalPrice: 0 },
-            ],
-            customsFees: [{ value: true }],
-            promocode: '',
-            trackNumber: '',
-          },
-          documents: {
-            invoice: null,
-            lastName: '',
-            firstName: '',
-            patronymicName: '',
-            passport: '',
-            birthDate: null,
-            passportIssueDate: null,
-            passportIssuedBy: '',
-            registrationAddress: '',
-            identificationNumber: '',
-          },
-          address: {
-            deliveryAddress: '',
-            phoneNumber: '',
-          },
-        },
-      },
-    ];
+  async getAll(): Promise<Order[]> {
+    const orders = await this.orderModel.find();
+
+    return orders;
   }
-
-  getAll() {
-    return this.orders;
-  }
-
-  create(dto: CreateOrderDto) {
-    const order = { ...dto, id: uuidv4() };
-    this.orders = [...this.orders, order];
-
-    return order;
+  async create(dto: CreateOrderDto): Promise<Order> {
+    return await new this.orderModel(dto).save();
   }
 }
