@@ -10,7 +10,7 @@ export class OrdersService {
   constructor(@InjectModel(Order.name) private orderModel: Model<Order>) {}
 
   async getAll(): Promise<Order[]> {
-    const orders = await this.orderModel.find();
+    const orders = await this.orderModel.find().sort({ createdAt: -1 });
 
     return orders;
   }

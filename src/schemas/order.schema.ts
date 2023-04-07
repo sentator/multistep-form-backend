@@ -3,7 +3,7 @@ import { HydratedDocument } from 'mongoose';
 
 export type OrderDocument = HydratedDocument<Order>;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Order {
   @Prop({
     type: {
@@ -55,6 +55,7 @@ export class Order {
         phoneNumber: String,
       },
     },
+    timestamps: true,
   })
   data: {
     generalInformation: {
@@ -99,5 +100,10 @@ export class Order {
       phoneNumber: string;
     };
   };
+  @Prop()
+  createdAt: Date;
+
+  @Prop()
+  updatedAt: Date;
 }
 export const OrderSchema = SchemaFactory.createForClass(Order);
