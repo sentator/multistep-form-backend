@@ -1,4 +1,4 @@
 export class FileDto {
-  readonly originalname: string;
-  readonly filename: string;
+  readonly originalName: string;
+  readonly fileName: string;
 }

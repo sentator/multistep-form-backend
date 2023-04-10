@@ -4,8 +4,8 @@ import { Injectable } from '@nestjs/common';
 export class FilesService {
   uploadFiles(files: Express.Multer.File[]) {
     return files.map((file) => ({
-      originalname: file.originalname,
-      filename: file.filename,
+      originalName: file.originalname,
+      fileName: file.filename,
     }));
   }
 }

@@ -39,6 +39,13 @@ export class Order {
       },
       documents: {
         _id: false,
+        invoice: [
+          {
+            _id: false,
+            originalName: String,
+            fileName: String,
+          },
+        ],
         lastName: String,
         firstName: String,
         patronymicName: String,
@@ -85,6 +92,10 @@ export class Order {
       trackNumber: string;
     };
     documents: {
+      invoice: {
+        originalName: string;
+        fileName: string;
+      };
       lastName: string;
       firstName: string;
       patronymicName: string;
