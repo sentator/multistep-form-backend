@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { FileDto } from 'src/files/dto/files.dto';
 
 export type OrderDocument = HydratedDocument<Order>;
 
@@ -92,12 +93,8 @@ export class Order {
       promocode: string;
       trackNumber: string;
     };
-    documents: {
-      invoice: {
-        originalName: string;
-        fileName: string;
-        fileUrl: string;
-      };
+    documents?: {
+      invoice: FileDto[];
       lastName: string;
       firstName: string;
       patronymicName: string;
