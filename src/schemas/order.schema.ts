@@ -44,6 +44,7 @@ export class Order {
             _id: false,
             originalName: String,
             fileName: String,
+            fileUrl: String,
           },
         ],
         lastName: String,
@@ -95,6 +96,7 @@ export class Order {
       invoice: {
         originalName: string;
         fileName: string;
+        fileUrl: string;
       };
       lastName: string;
       firstName: string;
