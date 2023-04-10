@@ -3,6 +3,7 @@ import {
   Get,
   Param,
   Post,
+  Req,
   Res,
   UploadedFiles,
   UseInterceptors,
@@ -12,7 +13,7 @@ import { diskStorage } from 'multer';
 
 import { editFileName, invoiceFileFilter } from 'src/utils/file-upload.utils';
 import { FilesService } from './files.service';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 
 @Controller('files')
 export class FilesController {
@@ -30,9 +31,11 @@ export class FilesController {
   )
   async uploadMultipleFiles(
     @UploadedFiles() files: Express.Multer.File[],
+    @Req() req: Request,
     @Res() res: Response,
   ) {
-    const response = await this.filesService.uploadFiles(files);
+    const fullUrl = req.protocol + '://' + req.get('Host') + req.originalUrl;
+    const response = await this.filesService.uploadFiles(files, fullUrl);
 
     if (!response) {
       return res.status(400).send({ message: 'Files have not been uploaded' });
