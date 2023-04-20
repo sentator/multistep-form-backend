@@ -63,6 +63,18 @@ export class Order {
         deliveryAddress: String,
         phoneNumber: String,
       },
+      progress: {
+        type: [
+          {
+            _id: false,
+            label: String,
+            status: String,
+            createdAt: Date,
+          },
+        ],
+        timestamps: { createdAt: true },
+        required: true,
+      },
     },
     timestamps: true,
   })
@@ -109,26 +121,31 @@ export class Order {
       deliveryAddress: string;
       phoneNumber: string;
     };
+    progress: {
+      label: string;
+      status: string;
+      createdAt: Date;
+    }[];
   };
   @Prop()
   createdAt: Date;
   @Prop()
   updatedAt: Date;
-  @Prop({
-    type: [
-      {
-        _id: false,
-        label: String,
-        name: String,
-        createdAt: Date,
-      },
-    ],
-    timestamps: { createdAt: true },
-  })
-  progress: {
-    label: string;
-    name: string;
-    createdAt: Date;
-  }[];
+  // @Prop({
+  //   type: [
+  //     {
+  //       _id: false,
+  //       label: String,
+  //       name: String,
+  //       createdAt: Date,
+  //     },
+  //   ],
+  //   timestamps: { createdAt: true },
+  // })
+  // progress: {
+  //   label: string;
+  //   name: string;
+  //   createdAt: Date;
+  // }[];
 }
 export const OrderSchema = SchemaFactory.createForClass(Order);
