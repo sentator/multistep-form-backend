@@ -112,8 +112,23 @@ export class Order {
   };
   @Prop()
   createdAt: Date;
-
   @Prop()
   updatedAt: Date;
+  @Prop({
+    type: [
+      {
+        _id: false,
+        label: String,
+        name: String,
+        createdAt: Date,
+      },
+    ],
+    timestamps: { createdAt: true },
+  })
+  progress: {
+    label: string;
+    name: string;
+    createdAt: Date;
+  }[];
 }
 export const OrderSchema = SchemaFactory.createForClass(Order);
