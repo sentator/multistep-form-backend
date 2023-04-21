@@ -35,8 +35,26 @@ export class OrdersService {
     return await new this.orderModel(order).save();
   }
 
+  // async updateOne(id: string, dto: CreateOrderDtoWithStatus): Promise<Order> {
+  //   const order = await this.orderModel.findByIdAndUpdate(id, dto, {
+  //     returnDocument: 'after',
+  //   });
+
+  //   if (!order) return null;
+
+  //   return order;
+  // }
+
   async updateOne(id: string, dto: CreateOrderDtoWithStatus): Promise<Order> {
-    const order = await this.orderModel.findByIdAndUpdate(id, dto, {
+    // If status exists, the request is sent by admin. Otherwise, the request is sent by user
+    const status = dto.status
+      ? { ...dto.status, createdAt: new Date(Date.now()).toISOString() }
+      : null;
+    const updateQuery = status
+      ? { $set: { ...dto, status }, $push: { progress: status } }
+      : dto;
+
+    const order = await this.orderModel.findByIdAndUpdate(id, updateQuery, {
       returnDocument: 'after',
     });
 
