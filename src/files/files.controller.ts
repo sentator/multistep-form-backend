@@ -36,7 +36,8 @@ export class FilesController {
     @Req() req: Request,
     @Res() res: Response,
   ) {
-    const fullUrl = req.protocol + '://' + req.get('Host') + req.originalUrl;
+    // const fullUrl = req.protocol + '://' + req.get('Host') + req.originalUrl;
+    const fullUrl = 'https://' + req.get('Host') + req.originalUrl;
     const response = await this.filesService.uploadFiles(files, fullUrl);
 
     if (!response) {
