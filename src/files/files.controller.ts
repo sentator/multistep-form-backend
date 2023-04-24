@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  Body,
   Param,
   Post,
   Req,
@@ -14,6 +15,7 @@ import { diskStorage } from 'multer';
 import { editFileName, invoiceFileFilter } from 'src/utils/file-upload.utils';
 import { FilesService } from './files.service';
 import { Request, Response } from 'express';
+import { FileDto } from './dto/files.dto';
 
 @Controller('files')
 export class FilesController {
@@ -47,5 +49,12 @@ export class FilesController {
   @Get(':filepath')
   seeUploadedFile(@Param('filepath') file, @Res() res: Response) {
     return res.sendFile(file, { root: './files' });
+  }
+
+  @Post('delete')
+  async removeFiles(@Body() dto: FileDto[]) {
+    const response = await this.filesService.removeFiles(dto);
+
+    return response;
   }
 }
